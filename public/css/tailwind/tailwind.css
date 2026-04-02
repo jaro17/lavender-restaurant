@@ -505,9 +505,6 @@
   .object-cover {
     object-fit: cover;
   }
-  .p-2 {
-    padding: calc(var(--spacing) * 2);
-  }
   .p-6 {
     padding: calc(var(--spacing) * 6);
   }
