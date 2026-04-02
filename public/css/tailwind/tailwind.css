@@ -279,9 +279,6 @@
   .h-6 {
     height: calc(var(--spacing) * 6);
   }
-  .h-8 {
-    height: calc(var(--spacing) * 8);
-  }
   .h-10 {
     height: calc(var(--spacing) * 10);
   }
@@ -299,9 +296,6 @@
   }
   .w-6 {
     width: calc(var(--spacing) * 6);
-  }
-  .w-8 {
-    width: calc(var(--spacing) * 8);
   }
   .w-10 {
     width: calc(var(--spacing) * 10);
@@ -599,10 +593,6 @@
     font-size: var(--text-sm);
     line-height: var(--tw-leading, var(--text-sm--line-height));
   }
-  .text-xl {
-    font-size: var(--text-xl);
-    line-height: var(--tw-leading, var(--text-xl--line-height));
-  }
   .text-xs {
     font-size: var(--text-xs);
     line-height: var(--tw-leading, var(--text-xs--line-height));
@@ -753,6 +743,59 @@
       font-size: var(--text-6xl);
       line-height: var(--tw-leading, var(--text-6xl--line-height));
     }
+  }
+}
+@layer components {
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 9999px;
+    border: 1px solid rgba(124, 114, 154, 0.18);
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.98), rgba(243,232,255,0.9) 48%, rgba(221,214,254,0.78) 100%);
+    box-shadow: 0 10px 30px rgba(124, 114, 154, 0.18), inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+  .brand-mark-image {
+    display: block;
+    height: auto;
+    filter: drop-shadow(0 4px 10px rgba(124, 114, 154, 0.28));
+  }
+  .brand-mark-header {
+    width: 3.4rem;
+    height: 3.4rem;
+    padding: 0.45rem;
+  }
+  .brand-mark-header .brand-mark-image {
+    width: 2.35rem;
+  }
+  .brand-mark-footer {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.35rem;
+    border-color: rgba(216, 180, 254, 0.28);
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.22), rgba(196,181,253,0.24) 50%, rgba(109,40,217,0.18) 100%);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255,255,255,0.22);
+  }
+  .brand-mark-footer .brand-mark-image {
+    width: 2.1rem;
+    filter: drop-shadow(0 4px 12px rgba(255,255,255,0.16));
+  }
+  .brand-wordmark {
+    font-family: var(--font-heading);
+    letter-spacing: 0.03em;
+    text-wrap: balance;
+  }
+  .brand-wordmark-header {
+    font-size: 1.35rem;
+    line-height: 1.1;
+    color: #3d315b;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.95), 0 6px 20px rgba(124, 114, 154, 0.16);
+  }
+  .brand-wordmark-footer {
+    font-size: 1.3rem;
+    line-height: 1.1;
+    color: #fff;
+    text-shadow: 0 4px 18px rgba(255,255,255,0.12);
   }
 }
 @property --tw-rotate-x {

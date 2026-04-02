@@ -8,14 +8,16 @@ html(lang="en")
         link(rel="preconnect", href="https://fonts.gstatic.com")
         link(rel="stylesheet", href="https://fonts.googleapis.com/css?family=Lato:400,500,600,700,800,900|Playfair+Display:400,500,600,700,800,900&subset=latin")
         link(rel="stylesheet", href="css/tailwind/tailwind.min.css")
-        link(rel="icon", type="image/png", sizes="32x32", href="shuffle-for-tailwind.png")
+        link(rel="icon", type="image/svg+xml", href="plain-assets/images/image2vector.svg")
+        link(rel="alternate icon", href="plain-assets/images/image2vector.svg")
     body(class="antialiased bg-body text-body font-body")
         div(class="")
             nav(class="bg-white border-b border-purple-100")
                 div(class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between")
                     a(href="#", class="flex items-center gap-3")
-                        img(src="plain-assets/images/image2vector.svg", alt="Lavender Restaurant logo", class="w-10 h-10 object-contain")
-                        span(class="font-heading text-xl text-gray-800") Lavender Restaurant
+                        span(class="brand-mark brand-mark-header")
+                            img(src="plain-assets/images/image2vector.svg", alt="Lavender Restaurant logo", class="brand-mark-image")
+                        span(class="brand-wordmark brand-wordmark-header") Lavender Restaurant
                     ul(class="hidden md:flex items-center gap-8 text-sm text-gray-600")
                         li
                             a(href="#onas", class="hover:text-purple-600 transition-colors") O nás
@@ -141,8 +143,9 @@ html(lang="en")
                 div(class="max-w-6xl mx-auto px-6")
                     div(class="flex flex-col md:flex-row justify-between items-center gap-6")
                         div(class="flex items-center gap-3")
-                            img(src="plain-assets/images/image2vector.svg", alt="Lavender Restaurant logo", class="w-8 h-8 object-contain")
-                            span(class="font-heading text-xl") Lavender Restaurant
+                            span(class="brand-mark brand-mark-footer")
+                                img(src="plain-assets/images/image2vector.svg", alt="Lavender Restaurant logo", class="brand-mark-image")
+                            span(class="brand-wordmark brand-wordmark-footer") Lavender Restaurant
                         p(class="text-purple-300 text-sm") Všetky práva vyhradené.
                     div(class="mt-6 pt-6 border-t border-purple-800 text-center")
                         p(class="text-purple-400 text-sm")
