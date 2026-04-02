@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ pageTitle|default('Admin') }}</title>
+    <style>
+        :root {
+            color-scheme: light;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            background: #f6f2eb;
+            color: #2f241f;
+        }
+
+        .shell {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 32px 20px 64px;
+        }
+
+        .shell.wide {
+            max-width: 1600px;
+        }
+
+        .card {
+            background: #ffffff;
+            border: 1px solid #e7ddd2;
+            border-radius: 14px;
+            padding: 24px;
+            box-shadow: 0 12px 30px rgba(47, 36, 31, 0.08);
+        }
+
+        .eyebrow {
+            display: inline-block;
+            margin-bottom: 12px;
+            color: #8c5f3c;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 12px;
+            font-size: 32px;
+        }
+
+        p {
+            line-height: 1.6;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 16px;
+            background: #f8f4ef;
+            border-radius: 10px;
+        }
+
+        .topbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .logout-form {
+            margin: 0;
+        }
+
+        .button {
+            display: inline-block;
+            border: 0;
+            border-radius: 10px;
+            background: #8c5f3c;
+            color: #ffffff;
+            padding: 12px 16px;
+            font: inherit;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .button.secondary {
+            background: #e8ddd0;
+            color: #2f241f;
+        }
+
+        .field {
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .field span {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 700;
+        }
+
+        .field input {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #d9cabb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font: inherit;
+            background: #ffffff;
+        }
+
+        .checkbox-field {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-field input {
+            width: auto;
+            margin: 0;
+        }
+
+        .checkbox-field span {
+            margin: 0;
+        }
+
+        .form-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .alert {
+            margin-bottom: 16px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #f7dfdf;
+            color: #7d2d2d;
+        }
+
+        .notice {
+            margin-bottom: 16px;
+            padding: 14px 16px;
+            border-radius: 10px;
+            background: #e0f1e2;
+            color: #275c32;
+        }
+
+        textarea {
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid #d9cabb;
+            border-radius: 10px;
+            padding: 12px 14px;
+            font: inherit;
+            background: #ffffff;
+            resize: vertical;
+        }
+
+        .nav {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .nav a {
+            color: #8c5f3c;
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .menu-day-card {
+            margin: 24px 0;
+            padding: 20px;
+            border: 1px solid #e7ddd2;
+            border-radius: 12px;
+            background: #fcfaf7;
+        }
+
+        .menu-day-header h2,
+        .section-subtitle {
+            margin: 0 0 16px;
+        }
+
+        .menu-columns {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        .menu-item-card {
+            margin-bottom: 16px;
+            padding: 16px;
+            border-radius: 10px;
+            background: #ffffff;
+            border: 1px solid #efe5da;
+        }
+
+        .menu-notice {
+            padding: 18px 20px;
+            border-radius: 12px;
+            background: #f8efe5;
+            border: 1px solid #ead8c7;
+            color: #6c4530;
+        }
+
+        @media (max-width: 720px) {
+            .menu-columns {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        code {
+            background: #f1e7db;
+            padding: 2px 6px;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+<body>
+    <main class="{% block shell_class %}shell{% endblock %}">
+        {% if currentUser is defined and currentUser %}
+            <div class="topbar">
+                <div>Prihlásený ako <strong>{{ currentUser.username }}</strong></div>
+                <form method="post" action="/logout" class="logout-form">
+                    <button type="submit" class="button secondary">Odhlásiť sa</button>
+                </form>
+            </div>
+            <nav class="nav">
+                <a href="/admin">Prehľad</a>
+                <a href="/admin/menu">Týždenné menu</a>
+            </nav>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

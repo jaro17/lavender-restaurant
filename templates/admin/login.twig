@@ -1,0 +1,29 @@
+{% extends "layout.twig" %}
+
+{% block content %}
+    <section class="card" style="max-width: 460px; margin: 48px auto 0;">
+        <span class="eyebrow">Phase 2</span>
+        <h1>Prihlásenie do administrácie</h1>
+        <p>Prihláste sa pre prístup do chránenej administrácie.</p>
+
+        {% if flashError %}
+            <div class="alert">{{ flashError }}</div>
+        {% endif %}
+
+        <form method="post" action="/admin">
+            <label class="field">
+                <span>Meno</span>
+                <input type="text" name="username" value="{{ oldUsername }}" required>
+            </label>
+
+            <label class="field">
+                <span>Heslo</span>
+                <input type="password" name="password" required>
+            </label>
+
+            <div class="form-actions">
+                <button type="submit" class="button">Prihlásiť sa</button>
+            </div>
+        </form>
+    </section>
+{% endblock %}

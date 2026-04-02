@@ -1,0 +1,21 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.codex
+
+# Frontend dependencies
+frontend/node_modules/
+
+# PHP dependencies
+vendor/
+
+# Runtime/cache data
+var/cache/*
+!var/cache/.gitignore
+var/data/database.sqlite
+
+# Local environment
+.env
+.env.local

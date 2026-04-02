@@ -1,0 +1,112 @@
+{% extends "layout.twig" %}
+
+{% block shell_class %}shell wide{% endblock %}
+
+{% block content %}
+    <section class="card">
+        <span class="eyebrow">Phase 3</span>
+        <h1>Týždenné menu</h1>
+        <p>Upravte menu samostatne pre každý pracovný deň, polievky a hlavné jedlá.</p>
+
+        {% if flashSuccess %}
+            <div class="notice">{{ flashSuccess }}</div>
+        {% endif %}
+
+        <form method="post" action="/admin/menu">
+            {% for dayKey, day in menu.days %}
+                <section class="menu-day-card" data-menu-day>
+                    <div class="menu-day-header">
+                        <h2>{{ day.label }}</h2>
+                    </div>
+
+                    <label class="field">
+                        <span>Dátum v nadpise dňa</span>
+                        <input type="text" name="days[{{ dayKey }}][date_label]" value="{{ day.date_label }}" placeholder="16.03.2026">
+                    </label>
+
+                    <label class="field checkbox-field">
+                        <input type="checkbox" name="days[{{ dayKey }}][closed]" value="1" data-day-closed-toggle {% if day.closed %}checked{% endif %}>
+                        <span>V tento deň sa nevarí</span>
+                    </label>
+
+                    <label class="field">
+                        <span>Dôvod, prečo sa nevarí</span>
+                        <input type="text" name="days[{{ dayKey }}][closed_reason]" value="{{ day.closed_reason }}" placeholder="Napríklad: Sviatok, dovolenka, technická odstávka">
+                    </label>
+
+                    <div class="menu-columns" data-day-menu-fields>
+                        <div>
+                            <h3 class="section-subtitle">Polievky</h3>
+
+                            {% for soup in day.soups %}
+                                <div class="menu-item-card">
+                                    <label class="field">
+                                        <span>Názov polievky {{ loop.index }}</span>
+                                        <input type="text" name="days[{{ dayKey }}][soups][{{ loop.index0 }}][title]" value="{{ soup.title }}" placeholder="Šampiňónová so zemiakmi (330ml)(bezlepková)">
+                                    </label>
+                                    <label class="field">
+                                        <span>Alergény</span>
+                                        <input type="text" name="days[{{ dayKey }}][soups][{{ loop.index0 }}][allergens]" value="{{ soup.allergens }}" placeholder="1,3,7">
+                                    </label>
+                                    <label class="field">
+                                        <span>Cena</span>
+                                        <input type="text" name="days[{{ dayKey }}][soups][{{ loop.index0 }}][price]" value="{{ soup.price }}" placeholder="1,00€/2,20€">
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+
+                        <div>
+                            <h3 class="section-subtitle">Hlavné jedlá</h3>
+
+                            {% for main in day.mains %}
+                                <div class="menu-item-card">
+                                    <label class="field">
+                                        <span>Názov jedla {{ loop.index }}</span>
+                                        <input type="text" name="days[{{ dayKey }}][mains][{{ loop.index0 }}][title]" value="{{ main.title }}" placeholder="Kur. rezeň (140g) so zemiakovou kašou (200g), kyslá uhorka">
+                                    </label>
+                                    <label class="field">
+                                        <span>Alergény</span>
+                                        <input type="text" name="days[{{ dayKey }}][mains][{{ loop.index0 }}][allergens]" value="{{ main.allergens }}" placeholder="1,3,7">
+                                    </label>
+                                    <label class="field">
+                                        <span>Cena</span>
+                                        <input type="text" name="days[{{ dayKey }}][mains][{{ loop.index0 }}][price]" value="{{ main.price }}" placeholder="5,70€">
+                                    </label>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+            {% endfor %}
+
+            <div class="form-actions">
+                <button type="submit" class="button">Uložiť menu</button>
+                <a href="/api/menu" class="button secondary">Zobraziť API</a>
+            </div>
+        </form>
+
+        <div class="status">
+            <p><strong>Naposledy upravené:</strong> {{ menu.updated_at ?: 'Zatiaľ nebolo upravené' }}</p>
+            <p><strong>Verejné API:</strong> <code>/api/menu</code></p>
+        </div>
+    </section>
+
+    <script>
+        document.querySelectorAll('[data-menu-day]').forEach(function (dayCard) {
+            var toggle = dayCard.querySelector('[data-day-closed-toggle]');
+            var menuFields = dayCard.querySelector('[data-day-menu-fields]');
+
+            if (!toggle || !menuFields) {
+                return;
+            }
+
+            function syncDayState() {
+                menuFields.hidden = toggle.checked;
+            }
+
+            toggle.addEventListener('change', syncDayState);
+            syncDayState();
+        });
+    </script>
+{% endblock %}
