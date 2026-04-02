@@ -36,26 +36,26 @@ final class HomeController
         @$document->loadHTML('<?xml encoding="UTF-8">' . $html, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
 
         $xpath = new \DOMXPath($document);
-        $menuSection = $xpath->query('//section[@id="menu"]')->item(0);
+        $menuContent = $xpath->query('//*[@id="menu-dynamic-content"]')->item(0);
 
-        if (!$menuSection instanceof \DOMElement) {
+        if (!$menuContent instanceof \DOMElement) {
             return $html;
         }
 
-        while ($menuSection->firstChild) {
-            $menuSection->removeChild($menuSection->firstChild);
+        while ($menuContent->firstChild) {
+            $menuContent->removeChild($menuContent->firstChild);
         }
 
         $fragment = $document->createDocumentFragment();
-        $fragment->appendXML($this->renderMenuSection());
-        $menuSection->appendChild($fragment);
+        $fragment->appendXML($this->renderMenuContent());
+        $menuContent->appendChild($fragment);
 
         $result = $document->saveHTML();
 
         return str_replace('<?xml encoding="UTF-8">', '', (string) $result);
     }
 
-    private function renderMenuSection(): string
+    private function renderMenuContent(): string
     {
         $menu = $this->weeklyMenu->get();
         $daysHtml = '';
@@ -75,33 +75,15 @@ final class HomeController
 HTML;
         }
 
+        $weekLabel = trim((string) ($menu['week_label'] ?? ''));
+        $weekLabelHtml = $weekLabel !== ''
+            ? '<p class="text-center text-sm font-medium text-purple-600 mb-8">' . $this->escape($weekLabel) . '</p>'
+            : '';
+
         return <<<HTML
-<div class="max-w-4xl mx-auto px-6">
-  <div class="bg-white rounded-2xl shadow-xl border border-purple-100 overflow-hidden print-menu">
-    <div class="bg-gradient-to-r from-purple-100 to-purple-50 px-8 py-10 text-center border-b border-purple-100">
-      <div class="flex justify-center mb-4">
-        <svg class="w-16 h-16 text-purple-400" viewBox="0 0 24 24" fill="currentColor">
-          <path d="M12 2C8.5 2 6 4.5 6 7c0 2 1.5 4 3 5.5V22h6v-9.5c1.5-1.5 3-3.5 3-5.5 0-2.5-2.5-5-6-5zm0 2c2.2 0 4 1.8 4 3s-1.8 3-4 5c-2.2-2-4-3.8-4-5s1.8-3 4-3z"></path>
-        </svg>
-      </div>
-      <h2 class="font-heading text-3xl text-gray-800 mb-2">Lavender Restaurant</h2>
-      <p class="text-purple-600 font-medium text-lg">Denné menu</p>
-      <p class="text-gray-600 mt-2">Telefón: <a class="text-purple-600 hover:underline" href="tel:+421944445221">+421 944 445 221</a></p>
-    </div>
-    <div class="px-8 py-8 space-y-10">
-      {$daysHtml}
-    </div>
-    <div class="px-8 py-6 bg-purple-50 border-t border-purple-100">
-      <p class="text-xs text-gray-500 leading-relaxed"><strong>Alergény:</strong> 1. obilniny obsahujúce lepok, 2. kôrovce, 3. vajcia, 4. ryby, 5. arašidy, 6. sójové zrná (sója), 7. mlieko, 8. škrupinové plody (orechy), piniové, oriešky..., 9. zeler, 10. horčica, 11. sezamové semená (sezam), 12. oxid siričitý a siričitany, 13. vlčí bôb (lupina), 14. mäkkýše.</p>
-    </div>
-    <div class="px-8 py-6 text-center">
-      <button class="print-btn px-8 py-3 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 transition-colors inline-flex items-center gap-2">
-        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
-        </svg><span>Vytlačiť menu</span>
-      </button>
-    </div>
-  </div>
+{$weekLabelHtml}
+<div class="space-y-10">
+  {$daysHtml}
 </div>
 HTML;
     }
