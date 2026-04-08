@@ -1,14 +1,16 @@
 
 <!-- Generated output goes to public/index.html.-->
 <!-- Edit this file, not public/index.html.-->
-<html lang="en">
+<html lang="sk">
   <head>
     <title>Lavender Restaurant — Homepage</title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="description" content="Denné menu Bardejov, reštaurácia Bardejov"/>
     <link rel="preconnect" href="https://fonts.gstatic.com"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato:400,500,600,700,800,900|Playfair+Display:400,500,600,700,800,900&amp;subset=latin"/>
     <link rel="stylesheet" href="css/tailwind/tailwind.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <link rel="icon" type="image/svg+xml" href="plain-assets/images/image2vector.svg"/>
     <link rel="alternate icon" href="plain-assets/images/image2vector.svg"/>
   </head>
@@ -37,7 +39,7 @@
           </ul>
         </div>
       </nav>
-      <section class="relative py-24 overflow-hidden" id="onas">
+      <section class="relative py-24 overflow-hidden animate__animated animate__fadeInDown" id="onas">
         <div class="absolute inset-0 bg-gradient-to-br from-purple-900 via-purple-800 to-purple-950"></div>
         <div class="absolute inset-0 opacity-30" style="background-image: url('plain-assets/images/lavender-flower.jpg'); background-size: cover; background-position: center;"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-purple-950/80 to-transparent"></div>
@@ -63,7 +65,7 @@
               <p class="text-xs text-gray-500 leading-relaxed"><strong>Alergény:</strong> 1. obilniny obsahujúce lepok, 2. kôrovce, 3. vajcia, 4. ryby, 5. arašidy, 6. sójové zrná (sója), 7. mlieko, 8. škrupinové plody (orechy), piniové, oriešky..., 9. zeler, 10. horčica, 11. sezamové semená (sezam), 12. oxid siričitý a siričitany, 13. vlčí bôb (lupina), 14. mäkkýše.</p>
             </div>
             <div class="px-8 py-6 text-center">
-              <button class="print-btn px-8 py-3 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 transition-colors inline-flex items-center gap-2">
+              <button class="print-btn px-8 py-3 bg-purple-600 text-white rounded-full font-medium hover:bg-purple-700 hover:scale-105 hover:shadow-lg transition-all duration-300 !cursor-pointer inline-flex items-center gap-2" style="cursor: pointer;">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewbox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
                 </svg><span>Vytlačiť menu</span>
@@ -166,7 +168,7 @@
         <div class="max-w-6xl mx-auto px-6">
           <div class="flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-3"><span class="brand-mark brand-mark-footer"><img class="brand-mark-image" src="plain-assets/images/image2vector.svg" alt="Lavender Restaurant logo"/></span><span class="brand-wordmark brand-wordmark-footer">Lavender Restaurant</span></div>
-            <p class="text-purple-300 text-sm">Všetky práva vyhradené.</p>
+            <p class="text-purple-300 text-sm">© <span id="current-year"></span> Lavender Restaurant. Všetky práva vyhradené.</p>
           </div>
           <div class="mt-6 pt-6 border-t border-purple-800 text-center">
             <p class="text-purple-400 text-sm">Tvorba webu:<a class="hover:text-purple-300 transition-colors" href="mailto:jaroslav.banas@tuta.io"> jaroslav.banas@tuta.io</a></p>
@@ -175,5 +177,6 @@
       </footer>
     </div>
     <script type="text/javascript" src="js/global-31737.js?v=1774022500"></script>
+    <script>document.getElementById('current-year').innerHTML = new Date().getFullYear();</script>
   </body>
 </html>

@@ -39,12 +39,13 @@ final class WeeklyMenu
         ];
     }
 
-    public function save(array $days): void
+    public function save(array $days, string $weekLabel = ''): void
     {
         $statement = $this->pdo->prepare(
-            'UPDATE weekly_menu SET menu_text = :menu_text, updated_at = CURRENT_TIMESTAMP WHERE id = 1'
+            'UPDATE weekly_menu SET week_label = :week_label, menu_text = :menu_text, updated_at = CURRENT_TIMESTAMP WHERE id = 1'
         );
         $statement->execute([
+            'week_label' => trim($weekLabel),
             'menu_text' => json_encode($this->normalizeDays($days), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT),
         ]);
     }

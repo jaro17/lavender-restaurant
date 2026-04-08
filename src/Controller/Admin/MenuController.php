@@ -19,7 +19,7 @@ final class MenuController
     ) {
     }
 
-    public function index(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function index(ServerRequestInterface $_request, ResponseInterface $response): ResponseInterface
     {
         $menu = $this->weeklyMenu->get();
         $flash = $_SESSION['flash_success'] ?? null;
@@ -46,7 +46,7 @@ final class MenuController
             ->withStatus(302);
     }
 
-    public function apiShow(ServerRequestInterface $request, ResponseInterface $response): ResponseInterface
+    public function apiShow(ServerRequestInterface $_request, ResponseInterface $response): ResponseInterface
     {
         $menu = $this->weeklyMenu->get();
 

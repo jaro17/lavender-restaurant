@@ -69,7 +69,7 @@ final class HomeController
 
             $daysHtml .= <<<HTML
 <div class="menu-day">
-  <h3 class="font-heading text-xl text-purple-800 border-b-2 border-purple-200 pb-2 mb-4">{$heading}</h3>
+  <h3 class="font-body text-xl text-purple-800 border-b-2 border-purple-200 pb-2 mb-4">{$heading}</h3>
   {$itemsHtml}
 </div>
 HTML;

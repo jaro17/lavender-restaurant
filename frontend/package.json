@@ -13,7 +13,8 @@
     "css-minified": "npx @tailwindcss/cli -i src/tailwind/tailwind.css -o ../public/css/tailwind/tailwind.min.css --minify",
     "css": "npm-run-all --sequential css-*",
     "templates": "pug --pretty -o ../public/ src/pug/",
-    "build": "npm-run-all --sequential clean copy-* templates css",
+    "templates-decode": "node decode-html-entities.js",
+    "build": "npm-run-all --sequential clean copy-* templates templates-decode css",
     "watch": "npm-run-all build --parallel watch-templates watch-css browsersync",
     "watch-templates": "npm run templates -- --watch",
     "watch-css": "npx @tailwindcss/cli -i src/tailwind/tailwind.css -o ../public/css/tailwind/tailwind.css --watch"

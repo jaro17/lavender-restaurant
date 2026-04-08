@@ -18,7 +18,8 @@ return static function (array $settings): App {
     $app = AppFactory::create();
     $app->addBodyParsingMiddleware();
     $app->addRoutingMiddleware();
-    $app->addErrorMiddleware(true, true, true);
+    $debug = (bool) ($settings['debug'] ?? false);
+    $app->addErrorMiddleware($debug, true, true);
 
     $pdo = Database::connect($settings['database_path']);
     $twig = Twig::create($settings['templates_path'], [

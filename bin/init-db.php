@@ -58,7 +58,17 @@ if ((int) $statement->fetchColumn() === 0) {
         'username' => $settings['default_admin_username'],
         'password_hash' => password_hash($settings['default_admin_password'], PASSWORD_DEFAULT),
     ]);
+} else {
+    $update = $pdo->prepare('UPDATE admin_users SET password_hash = :password_hash WHERE username = :username');
+    $update->execute([
+        'username' => $settings['default_admin_username'],
+        'password_hash' => password_hash($settings['default_admin_password'], PASSWORD_DEFAULT),
+    ]);
 }
+
+$pdo->prepare('DELETE FROM admin_users WHERE username != :username')->execute([
+    'username' => $settings['default_admin_username'],
+]);
 
 echo "Database initialized at {$settings['database_path']}" . PHP_EOL;
 echo "Default admin: {$settings['default_admin_username']} / {$settings['default_admin_password']}" . PHP_EOL;
