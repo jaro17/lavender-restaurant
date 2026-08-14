@@ -12,6 +12,7 @@
         {% endif %}
 
         <form method="post" action="/admin/menu">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
             {% for dayKey, day in menu.days %}
                 <section class="menu-day-card" data-menu-day>
                     <div class="menu-day-header">
@@ -92,6 +93,47 @@
     </section>
 
     <script>
+        (function () {
+            var notice = document.querySelector('.notice');
+            if (!notice) return;
+            function onFormFocus(e) {
+                if (e.target.closest('form')) {
+                    notice.remove();
+                    document.removeEventListener('focus', onFormFocus, true);
+                }
+            }
+            document.addEventListener('focus', onFormFocus, true);
+        })();
+
+        (function () {
+            var dateLabelInputs = Array.from(document.querySelectorAll('input[name$="[date_label]"]'));
+            if (dateLabelInputs.length < 2) return;
+
+            function parseDate(str) {
+                var parts = str.trim().split('.');
+                if (parts.length !== 3) return null;
+                var d = parseInt(parts[0], 10), m = parseInt(parts[1], 10), y = parseInt(parts[2], 10);
+                if (isNaN(d) || isNaN(m) || isNaN(y) || y < 2000) return null;
+                return new Date(y, m - 1, d);
+            }
+
+            function formatDate(date) {
+                var d = String(date.getDate()).padStart(2, '0');
+                var m = String(date.getMonth() + 1).padStart(2, '0');
+                return d + '.' + m + '.' + date.getFullYear();
+            }
+
+            dateLabelInputs[0].addEventListener('input', function () {
+                var monday = parseDate(this.value);
+                if (!monday) return;
+                for (var i = 1; i < dateLabelInputs.length; i++) {
+                    var next = new Date(monday);
+                    next.setDate(monday.getDate() + i);
+                    dateLabelInputs[i].value = formatDate(next);
+                }
+            });
+        })();
+
         document.querySelectorAll('[data-menu-day]').forEach(function (dayCard) {
             var toggle = dayCard.querySelector('[data-day-closed-toggle]');
             var menuFields = dayCard.querySelector('[data-day-menu-fields]');

@@ -7,6 +7,7 @@ use App\Controller\Admin\AuthController;
 use App\Controller\Admin\MenuController;
 use App\Controller\Site\HomeController;
 use App\Infrastructure\Database;
+use App\Middleware\CsrfMiddleware;
 use App\Middleware\RequireAuthMiddleware;
 use App\Service\Auth;
 use App\Service\WeeklyMenu;
@@ -33,9 +34,11 @@ return static function (array $settings): App {
     $dashboardController = new DashboardController($twig, $pdo, $auth);
     $authController = new AuthController($twig, $auth);
     $menuController = new MenuController($twig, $weeklyMenu, $auth);
+    $csrfMiddleware = new CsrfMiddleware();
+    $twig->getEnvironment()->addGlobal('csrfToken', $_SESSION['csrf_token'] ?? '');
     $requireAuthMiddleware = new RequireAuthMiddleware($auth);
     $registerRoutes = require $settings['base_path'] . '/routes/web.php';
-    $registerRoutes($app, $homeController, $dashboardController, $authController, $menuController, $requireAuthMiddleware, $auth);
+    $registerRoutes($app, $homeController, $dashboardController, $authController, $menuController, $requireAuthMiddleware, $csrfMiddleware, $auth);
 
     return $app;
 };

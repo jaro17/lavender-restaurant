@@ -228,6 +228,7 @@
             <div class="topbar">
                 <div>Prihlásený ako <strong>{{ currentUser.username }}</strong></div>
                 <form method="post" action="/logout" class="logout-form">
+                    <input type="hidden" name="_csrf" value="{{ csrfToken }}">
                     <button type="submit" class="button secondary">Odhlásiť sa</button>
                 </form>
             </div>

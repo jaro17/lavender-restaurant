@@ -27,7 +27,11 @@ final class HomeController
         $html = (string) file_get_contents($this->frontendIndexPath);
         $response->getBody()->write($this->injectMenuSection($html));
 
-        return $response->withHeader('Content-Type', 'text/html; charset=UTF-8');
+        return $response
+            ->withHeader('Content-Type', 'text/html; charset=UTF-8')
+            ->withHeader('Cache-Control', 'no-cache, no-store, must-revalidate')
+            ->withHeader('Pragma', 'no-cache')
+            ->withHeader('Expires', '0');
     }
 
     private function injectMenuSection(string $html): string
@@ -69,7 +73,7 @@ final class HomeController
 
             $daysHtml .= <<<HTML
 <div class="menu-day">
-  <h3 class="font-body text-xl text-purple-800 border-b-2 border-purple-200 pb-2 mb-4">{$heading}</h3>
+  <h3 class="font-body text-2xl font-bold text-purple-800 border-b-2 border-purple-200 pb-2 mb-4">{$heading}</h3>
   {$itemsHtml}
 </div>
 HTML;

@@ -10,6 +10,7 @@
         {% endif %}
 
         <form method="post" action="/admin">
+            <input type="hidden" name="_csrf" value="{{ csrfToken }}">
             <label class="field">
                 <span>Meno</span>
                 <input type="text" name="username" value="{{ oldUsername }}" required>

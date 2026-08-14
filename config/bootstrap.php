@@ -19,6 +19,10 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
+
 foreach ([$settings['cache_path'], dirname($settings['database_path'])] as $directory) {
     if (!is_dir($directory)) {
         mkdir($directory, 0775, true);
